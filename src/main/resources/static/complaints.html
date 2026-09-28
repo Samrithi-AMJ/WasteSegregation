@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Complaints - Smart Waste Management</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<script src="js/app.js"></script>
+
+<script>
+    const CURRENT_USER = renderShell('complaints', 'Citizen Complaints');
+
+    if (!CURRENT_USER) {
+        document.write('');
+    }
+</script>
+
+
+<!-- =========================================================
+     COMPLAINTS PAGE TEMPLATE
+========================================================= -->
+
+<template id="complaints-template">
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h3 id="panel-heading">
+                Complaints
+            </h3>
+
+            <div class="toolbar">
+
+                <select id="status-filter">
+                    <option value="">All Statuses</option>
+                    <option value="PENDING">Pending</option>
+                    <option value="ASSIGNED">Assigned</option>
+                    <option value="IN_PROGRESS">In Progress</option>
+                    <option value="RESOLVED">Resolved</option>
+                    <option value="REJECTED">Rejected</option>
+                </select>
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="add-btn">
+                    + New Complaint
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             COMPLAINT TABLE
+        ====================================================== -->
+
+        <div class="table-wrap">
+
+            <table class="data-table">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Citizen</th>
+                        <th>Location</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="complaints-body">
+
+                    <tr class="empty-row">
+                        <td colspan="7">
+                            Loading complaints...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</template>
+
+
+<!-- =========================================================
+     COMPLAINT MODAL
+========================================================= -->
+
+<div class="modal-overlay" id="complaint-modal">
+
+    <div class="modal-box">
+
+        <h3 id="modal-title">
+            New Complaint
+        </h3>
+
+
+        <form id="complaint-form">
+
+            <!-- Hidden Complaint ID -->
+            <input
+                type="hidden"
+                id="complaintId">
+
+
+            <!-- =================================================
+                 CITIZEN SELECT
+            ================================================== -->
+
+            <div
+                class="form-group"
+                id="citizen-select-group">
+
+                <label for="citizenId">
+                    Citizen
+                </label>
+
+                <!--
+                    IMPORTANT:
+                    Do NOT put required here.
+
+                    JavaScript will make this field required
+                    only when ADMIN creates a complaint.
+                -->
+
+                <select id="citizenId">
+                </select>
+
+            </div>
+
+
+            <!-- =================================================
+                 LOCATION
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label for="location">
+                    Location
+                </label>
+
+                <input
+                    type="text"
+                    id="location"
+                    required
+                    autocomplete="off"
+                    placeholder="Enter complaint location">
+
+            </div>
+
+
+            <!-- =================================================
+                 DESCRIPTION
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label for="description">
+                    Description
+                </label>
+
+                <textarea
+                    id="description"
+                    rows="4"
+                    required
+                    placeholder="Describe the issue..."></textarea>
+
+            </div>
+
+
+            <!-- =================================================
+                 STATUS
+            ================================================== -->
+
+            <div
+                class="form-group"
+                id="status-group"
+                style="display: none;">
+
+                <label for="status">
+                    Status
+                </label>
+
+                <select id="status">
+
+                    <option value="PENDING">
+                        Pending
+                    </option>
+
+                    <option value="ASSIGNED">
+                        Assigned
+                    </option>
+
+                    <option value="IN_PROGRESS">
+                        In Progress
+                    </option>
+
+                    <option value="RESOLVED">
+                        Resolved
+                    </option>
+
+                    <option value="REJECTED">
+                        Rejected
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- =================================================
+                 MODAL BUTTONS
+            ================================================== -->
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="cancel-btn">
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="save-complaint-btn">
+                    Save
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     COMPLAINT JAVASCRIPT
+========================================================= -->
+
+<script src="js/complaints.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vehicles - Smart Waste Management</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<script src="js/app.js"></script>
+<script>
+    const CURRENT_USER = renderShell('vehicles', 'Garbage Vehicles');
+    if (!CURRENT_USER) { document.write(''); }
+</script>
+
+<template id="vehicles-template">
+    <div class="panel">
+        <div class="panel-header">
+            <h3>Collection Vehicles</h3>
+            <div class="toolbar">
+                <select id="status-filter">
+                    <option value="">All Statuses</option>
+                    <option value="AVAILABLE">Available</option>
+                    <option value="ON_ROUTE">On Route</option>
+                    <option value="MAINTENANCE">Maintenance</option>
+                </select>
+                <button class="btn btn-primary" id="add-btn">+ Add Vehicle</button>
+            </div>
+        </div>
+        <div class="table-wrap">
+            <table class="data-table">
+                <thead>
+                    <tr><th>ID</th><th>Vehicle Number</th><th>Type</th><th>Driver</th><th>Capacity (kg)</th><th>Status</th><th>Actions</th></tr>
+                </thead>
+                <tbody id="vehicles-body"></tbody>
+            </table>
+        </div>
+    </div>
+</template>
+
+<div class="modal-overlay" id="vehicle-modal">
+    <div class="modal-box">
+        <h3 id="modal-title">Add Vehicle</h3>
+        <form id="vehicle-form">
+            <input type="hidden" id="vehicleId">
+            <div class="form-group">
+                <label>Vehicle Number</label>
+                <input type="text" id="vehicleNumber" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Type</label>
+                    <select id="vehicleType">
+                        <option value="GARBAGE_TRUCK">Garbage Truck</option>
+                        <option value="MINI_TRUCK">Mini Truck</option>
+                        <option value="COMPACTOR">Compactor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Capacity (kg)</label>
+                    <input type="number" id="capacity" min="1" step="0.1" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Driver Name</label>
+                <input type="text" id="driverName" required>
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <select id="status">
+                    <option value="AVAILABLE">Available</option>
+                    <option value="ON_ROUTE">On Route</option>
+                    <option value="MAINTENANCE">Maintenance</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="js/vehicles.js"></script>
+</body>
+</html>

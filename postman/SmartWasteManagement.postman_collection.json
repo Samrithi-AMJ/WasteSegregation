@@ -1,0 +1,206 @@
+{
+  "info": {
+    "name": "Smart Municipal Waste Management API",
+    "description": "Postman collection for testing the Smart Municipal Solid Waste Segregation and Collection Tracker REST API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080/api" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}" },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Login (Citizen)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"username\": \"citizen1\",\n  \"password\": \"citizen123\"\n}" },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Citizens",
+      "item": [
+        { "name": "Get All Citizens", "request": { "method": "GET", "url": "{{baseUrl}}/citizens" } },
+        { "name": "Get Citizen By Id", "request": { "method": "GET", "url": "{{baseUrl}}/citizens/1" } },
+        {
+          "name": "Create Citizen",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Test Citizen\",\n  \"phone\": \"9000000001\",\n  \"email\": \"test.citizen@example.com\",\n  \"address\": \"1 Test Street\",\n  \"area\": \"Ward 1\",\n  \"wardNumber\": 1\n}" },
+            "url": "{{baseUrl}}/citizens"
+          }
+        },
+        {
+          "name": "Update Citizen",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Test Citizen Updated\",\n  \"phone\": \"9000000001\",\n  \"email\": \"test.citizen@example.com\",\n  \"address\": \"1 Test Street\",\n  \"area\": \"Ward 2\",\n  \"wardNumber\": 2\n}" },
+            "url": "{{baseUrl}}/citizens/1"
+          }
+        },
+        { "name": "Delete Citizen", "request": { "method": "DELETE", "url": "{{baseUrl}}/citizens/1" } },
+        { "name": "Search Citizens by Name", "request": { "method": "GET", "url": "{{baseUrl}}/citizens?search=Arun" } }
+      ]
+    },
+    {
+      "name": "Workers",
+      "item": [
+        { "name": "Get All Workers", "request": { "method": "GET", "url": "{{baseUrl}}/workers" } },
+        { "name": "Get Worker By Id", "request": { "method": "GET", "url": "{{baseUrl}}/workers/1" } },
+        {
+          "name": "Create Worker",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Test Worker\",\n  \"phone\": \"9111111111\",\n  \"assignedArea\": \"Ward 1\",\n  \"status\": \"ACTIVE\"\n}" },
+            "url": "{{baseUrl}}/workers"
+          }
+        },
+        {
+          "name": "Update Worker",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Test Worker Updated\",\n  \"phone\": \"9111111111\",\n  \"assignedArea\": \"Ward 2\",\n  \"status\": \"ON_LEAVE\"\n}" },
+            "url": "{{baseUrl}}/workers/1"
+          }
+        },
+        { "name": "Delete Worker", "request": { "method": "DELETE", "url": "{{baseUrl}}/workers/1" } }
+      ]
+    },
+    {
+      "name": "Vehicles",
+      "item": [
+        { "name": "Get All Vehicles", "request": { "method": "GET", "url": "{{baseUrl}}/vehicles" } },
+        { "name": "Get Vehicle By Id", "request": { "method": "GET", "url": "{{baseUrl}}/vehicles/1" } },
+        {
+          "name": "Create Vehicle",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"vehicleNumber\": \"TN38ZZ0001\",\n  \"vehicleType\": \"MINI_TRUCK\",\n  \"driverName\": \"Test Driver\",\n  \"capacity\": 800,\n  \"status\": \"AVAILABLE\"\n}" },
+            "url": "{{baseUrl}}/vehicles"
+          }
+        },
+        {
+          "name": "Update Vehicle",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"vehicleNumber\": \"TN38ZZ0001\",\n  \"vehicleType\": \"MINI_TRUCK\",\n  \"driverName\": \"Test Driver 2\",\n  \"capacity\": 900,\n  \"status\": \"MAINTENANCE\"\n}" },
+            "url": "{{baseUrl}}/vehicles/1"
+          }
+        },
+        { "name": "Delete Vehicle", "request": { "method": "DELETE", "url": "{{baseUrl}}/vehicles/1" } }
+      ]
+    },
+    {
+      "name": "Waste Collections",
+      "item": [
+        { "name": "Get All Collections", "request": { "method": "GET", "url": "{{baseUrl}}/collections" } },
+        { "name": "Get Collection By Id", "request": { "method": "GET", "url": "{{baseUrl}}/collections/1" } },
+        { "name": "Filter Collections by Area", "request": { "method": "GET", "url": "{{baseUrl}}/collections?area=Ward 1" } },
+        { "name": "Filter Collections by Status", "request": { "method": "GET", "url": "{{baseUrl}}/collections?status=MISSED" } },
+        {
+          "name": "Create Collection",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"citizenId\": 1,\n  \"workerId\": 1,\n  \"vehicleId\": 1,\n  \"collectionDate\": \"2026-09-24\",\n  \"area\": \"Ward 1\",\n  \"wasteType\": \"WET\",\n  \"quantity\": 12.5,\n  \"status\": \"COLLECTED\"\n}" },
+            "url": "{{baseUrl}}/collections"
+          }
+        },
+        {
+          "name": "Update Collection",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"citizenId\": 1,\n  \"workerId\": 1,\n  \"vehicleId\": 1,\n  \"collectionDate\": \"2026-09-24\",\n  \"area\": \"Ward 1\",\n  \"wasteType\": \"WET\",\n  \"quantity\": 15,\n  \"status\": \"COLLECTED\"\n}" },
+            "url": "{{baseUrl}}/collections/1"
+          }
+        },
+        { "name": "Delete Collection", "request": { "method": "DELETE", "url": "{{baseUrl}}/collections/1" } }
+      ]
+    },
+    {
+      "name": "Segregation",
+      "item": [
+        { "name": "Get All Segregation Records", "request": { "method": "GET", "url": "{{baseUrl}}/segregations" } },
+        { "name": "Get Segregation By Id", "request": { "method": "GET", "url": "{{baseUrl}}/segregations/1" } },
+        {
+          "name": "Create Segregation",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"collectionId\": 1,\n  \"wetQuantity\": 5,\n  \"dryQuantity\": 4,\n  \"plasticQuantity\": 2,\n  \"paperQuantity\": 1,\n  \"otherQuantity\": 0.5\n}" },
+            "url": "{{baseUrl}}/segregations"
+          }
+        },
+        {
+          "name": "Update Segregation",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"collectionId\": 1,\n  \"wetQuantity\": 6,\n  \"dryQuantity\": 4,\n  \"plasticQuantity\": 2,\n  \"paperQuantity\": 1,\n  \"otherQuantity\": 0.5\n}" },
+            "url": "{{baseUrl}}/segregations/1"
+          }
+        },
+        { "name": "Delete Segregation", "request": { "method": "DELETE", "url": "{{baseUrl}}/segregations/1" } }
+      ]
+    },
+    {
+      "name": "Complaints",
+      "item": [
+        { "name": "Get All Complaints", "request": { "method": "GET", "url": "{{baseUrl}}/complaints" } },
+        { "name": "Get Complaint By Id", "request": { "method": "GET", "url": "{{baseUrl}}/complaints/1" } },
+        { "name": "Filter Complaints by Status", "request": { "method": "GET", "url": "{{baseUrl}}/complaints?status=PENDING" } },
+        {
+          "name": "Create Complaint",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"citizenId\": 1,\n  \"location\": \"Near Bus Stand\",\n  \"description\": \"Garbage has not been collected for two days.\"\n}" },
+            "url": "{{baseUrl}}/complaints"
+          }
+        },
+        {
+          "name": "Update Complaint Status",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"RESOLVED\"\n}" },
+            "url": "{{baseUrl}}/complaints/1/status"
+          }
+        },
+        { "name": "Delete Complaint", "request": { "method": "DELETE", "url": "{{baseUrl}}/complaints/1" } }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        { "name": "Get Statistics", "request": { "method": "GET", "url": "{{baseUrl}}/dashboard/statistics" } },
+        { "name": "Get Waste By Type", "request": { "method": "GET", "url": "{{baseUrl}}/dashboard/waste-by-type" } },
+        { "name": "Get Waste By Area", "request": { "method": "GET", "url": "{{baseUrl}}/dashboard/waste-by-area" } },
+        { "name": "Get Collection Status", "request": { "method": "GET", "url": "{{baseUrl}}/dashboard/collection-status" } },
+        { "name": "Get Complaint Status", "request": { "method": "GET", "url": "{{baseUrl}}/dashboard/complaint-status" } },
+        { "name": "Get Missed Collections", "request": { "method": "GET", "url": "{{baseUrl}}/dashboard/missed-collections" } }
+      ]
+    }
+  ]
+}

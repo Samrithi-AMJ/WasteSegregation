@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Smart Municipal Waste Management</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="brand-icon">🌿</div>
+            <h1>Smart Municipal Waste Management</h1>
+            <p class="subtitle">Waste Segregation &amp; Collection Tracker</p>
+
+            <div class="error-msg" id="error-msg"></div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter password" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" id="login-btn">Login</button>
+            </form>
+
+            <div class="demo-creds">
+                <strong>Demo credentials</strong><br>
+                Admin &nbsp;→&nbsp; admin / admin123<br>
+                Citizen → citizen1 / citizen123
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // If already logged in, skip straight to the dashboard
+        if (getCurrentUser()) {
+            window.location.href = 'dashboard.html';
+        }
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const errorBox = document.getElementById('error-msg');
+            errorBox.style.display = 'none';
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('login-btn');
+
+            btn.disabled = true;
+            btn.textContent = 'Signing in...';
+
+            try {
+                const result = await apiPost('/auth/login', { username, password });
+                localStorage.setItem('wm_user', JSON.stringify(result));
+                window.location.href = 'dashboard.html';
+            } catch (err) {
+                errorBox.textContent = err.message || 'Invalid username or password';
+                errorBox.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Login';
+            }
+        });
+    </script>
+</body>
+</html>

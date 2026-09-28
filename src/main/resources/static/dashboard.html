@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - Smart Waste Management</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+<script src="js/app.js"></script>
+<script>
+    const CURRENT_USER = renderShell('dashboard', 'Dashboard');
+    if (!CURRENT_USER) { document.write(''); }
+</script>
+
+<template id="dashboard-template">
+    <div id="overdue-alert" class="alert-banner" style="display:none;"></div>
+
+    <div class="stat-grid" id="stat-grid">
+        <!-- cards injected by JS -->
+    </div>
+
+    <div class="chart-grid">
+        <div class="chart-card">
+            <h3>Waste by Type</h3>
+            <canvas id="chart-waste-type"></canvas>
+        </div>
+        <div class="chart-card">
+            <h3>Collection Status</h3>
+            <canvas id="chart-collection-status"></canvas>
+        </div>
+        <div class="chart-card">
+            <h3>Waste by Area</h3>
+            <canvas id="chart-waste-area"></canvas>
+        </div>
+        <div class="chart-card">
+            <h3>Complaint Status</h3>
+            <canvas id="chart-complaint-status"></canvas>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header"><h3>Recent Waste Collections</h3></div>
+        <div class="table-wrap">
+            <table class="data-table">
+                <thead>
+                    <tr><th>ID</th><th>Area</th><th>Waste Type</th><th>Quantity (kg)</th><th>Worker</th><th>Vehicle</th><th>Date</th><th>Status</th></tr>
+                </thead>
+                <tbody id="recent-collections-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header"><h3>Recent Complaints</h3></div>
+        <div class="table-wrap">
+            <table class="data-table">
+                <thead>
+                    <tr><th>ID</th><th>Citizen</th><th>Location</th><th>Description</th><th>Date</th><th>Status</th></tr>
+                </thead>
+                <tbody id="recent-complaints-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header"><h3>Overdue / Missed Collections</h3></div>
+        <div class="table-wrap">
+            <table class="data-table">
+                <thead>
+                    <tr><th>Area</th><th>Citizen</th><th>Last Collection</th><th>Days Overdue</th><th>Status</th></tr>
+                </thead>
+                <tbody id="overdue-body"></tbody>
+            </table>
+        </div>
+    </div>
+</template>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>
